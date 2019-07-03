@@ -23,7 +23,7 @@ namespace Domain.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=192.168.200.183;database=Demo;User ID=sa;password=Yukon900;");
+            optionsBuilder.UseSqlServer("server=192.168.0.9;database=tempdb;User ID=sa;password=Yukon900;");
             //optionsBuilder.UseSqlServer();
         }
     }
