@@ -10,11 +10,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 using Domain.Services;
 using Domain.Services.Impl;
 using Domain.Repositories;
 using Domain.Repositories.Impl;
+using Domain.Persistence;
 
 namespace backend
 {
@@ -32,8 +34,16 @@ namespace backend
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            // services.AddDbContext<Context>(opts => opts.UseSqlServer(Configuration["ConnectionString:EmployeeDB"]));
+
+            services.AddDbContext<Context>(options =>
+            {
+
+            });
+
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<Context, Context>();
 
             services.AddCors(options =>
             {
@@ -60,7 +70,7 @@ namespace backend
                 app.UseHsts();
             }
 
-            app.UseCors("MiPoliticaCORS"); 
+            app.UseCors("MiPoliticaCORS");
 
             app.UseHttpsRedirection();
             app.UseMvc();
